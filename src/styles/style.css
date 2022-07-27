@@ -10,7 +10,8 @@ body {
   color: white;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 12px;
   margin: 12px 0;
   font-family: 'Inter', sans-serif;
@@ -20,7 +21,8 @@ input, textarea {
   border-radius: 4px;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #aaa;
   font-weight: bold;
 }
@@ -39,7 +41,6 @@ input::placeholder, textarea::placeholder {
   color: white;
 }
 
-
 .note-app__body {
   max-width: 1000px;
   margin: 16px auto;
@@ -57,7 +58,8 @@ input::placeholder, textarea::placeholder {
   margin-bottom: 48px;
 }
 
-.note-input input, .note-input textarea {
+.note-input input,
+.note-input textarea {
   display: block;
   width: 100%;
 }
@@ -136,7 +138,8 @@ input::placeholder, textarea::placeholder {
   display: flex;
 }
 
-.note-item__delete-button,.note-item__archive-button {
+.note-item__delete-button,
+.note-item__archive-button {
   display: block;
   width: 100%;
   background-color: transparent;
