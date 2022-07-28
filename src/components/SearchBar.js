@@ -7,10 +7,10 @@ export class SearchBar extends React.Component {
       searchKeyword: '',
     };
 
-    this.onKeywordChanges = this.onKeywordChanges.bind(this);
+    this.onKeywordChangesHandler = this.onKeywordChangesHandler.bind(this);
   }
 
-  onKeywordChanges(event) {
+  onKeywordChangesHandler(event) {
     this.setState(() => {
       return {
         searchKeyword: event.target.value,
@@ -23,10 +23,10 @@ export class SearchBar extends React.Component {
     return (
       <div className="note-search">
         <input
-          type="text"
+          type="search"
           placeholder="Search notes..."
           value={this.state.keyword}
-          onChange={this.onKeywordChanges}
+          onChange={this.onKeywordChangesHandler}
         />
       </div>
     );

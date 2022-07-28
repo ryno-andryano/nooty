@@ -1,9 +1,11 @@
 import React from 'react';
 import NoteList from './NoteList';
+import NoteInput from './NoteInput';
 
-function AppBody({notes, searchKeyword, onDelete, onArchive}) {
+function AppBody({notes, searchKeyword, onAddNote, onDelete, onArchive}) {
   return (
     <div className="note-app__body">
+      <NoteInput onAddNote={onAddNote} />
       <h2>Catatan Aktif</h2>
       <NoteList
         notes={notes}

@@ -2,6 +2,7 @@ import React from 'react';
 import AppHeader from './AppHeader';
 import AppBody from './AppBody';
 import {getInitialData} from '../utils/data';
+import {nanoid} from 'nanoid';
 
 class NoteApp extends React.Component {
   constructor(props) {
@@ -12,12 +13,30 @@ class NoteApp extends React.Component {
     };
 
     this.onSearchHandler = this.onSearchHandler.bind(this);
+    this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
   }
 
   onSearchHandler(keyword) {
     this.setState({searchKeyword: keyword});
+  }
+
+  onAddNoteHandler({title, body}) {
+    this.setState((prevState) => {
+      return {
+        notes: [
+          ...prevState.notes,
+          {
+            id: nanoid(5),
+            title,
+            body,
+            archived: false,
+            createdAt: new Date(),
+          },
+        ],
+      };
+    });
   }
 
   onDeleteHandler(id) {
@@ -39,6 +58,7 @@ class NoteApp extends React.Component {
         <AppBody
           notes={this.state.notes}
           searchKeyword={this.state.searchKeyword}
+          onAddNote={this.onAddNoteHandler}
           onDelete={this.onDeleteHandler}
           onArchive={this.onArchiveHandler}
         />
