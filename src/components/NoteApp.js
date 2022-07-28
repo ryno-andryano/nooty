@@ -1,15 +1,16 @@
 import React from 'react';
-import NoteList from './NoteList';
+import AppHeader from './AppHeader';
+import AppBody from './AppBody';
 import {getInitialData} from '../utils/data';
 
 function NoteApp() {
   const notes = getInitialData();
 
   return (
-    <div className="note-app__body">
-      <h2>Catatan Aktif</h2>
-      <NoteList notes={notes} />
-    </div>
+    <>
+      <AppHeader />
+      <AppBody notes={notes} />
+    </>
   );
 }
 
