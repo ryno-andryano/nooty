@@ -3,7 +3,7 @@ import NoteDeleteButton from './NoteDeleteButton';
 import NoteArchiveButton from './NoteArchiveButton';
 import {showFormattedDate} from '../utils/data';
 
-function NoteItem({title, createdAt, body}) {
+function NoteItem({title, createdAt, body, id, archived, onDelete, onArchive}) {
   return (
     <div className="note-item">
       <div className="note-item__content">
@@ -12,8 +12,8 @@ function NoteItem({title, createdAt, body}) {
         <p className="note-item__body">{body}</p>
       </div>
       <div className="note-item__action">
-        <NoteDeleteButton />
-        <NoteArchiveButton />
+        <NoteDeleteButton id={id} onDelete={onDelete} />
+        <NoteArchiveButton id={id} archived={archived} onArchive={onArchive} />
       </div>
     </div>
   );

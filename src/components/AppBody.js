@@ -1,13 +1,23 @@
 import React from 'react';
 import NoteList from './NoteList';
 
-function AppBody({notes}) {
+function AppBody({notes, onDelete, onArchive}) {
   return (
     <div className="note-app__body">
       <h2>Catatan Aktif</h2>
-      <NoteList notes={notes} isArchived={false} />
+      <NoteList
+        notes={notes}
+        isArchived={false}
+        onDelete={onDelete}
+        onArchive={onArchive}
+      />
       <h2>Archive</h2>
-      <NoteList notes={notes} isArchived={true} />
+      <NoteList
+        notes={notes}
+        isArchived={true}
+        onDelete={onDelete}
+        onArchive={onArchive}
+      />
     </div>
   );
 }
