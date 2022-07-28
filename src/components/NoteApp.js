@@ -8,10 +8,16 @@ class NoteApp extends React.Component {
     super(props);
     this.state = {
       notes: getInitialData(),
+      searchKeyword: '',
     };
 
+    this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
+  }
+
+  onSearchHandler(keyword) {
+    this.setState({searchKeyword: keyword});
   }
 
   onDeleteHandler(id) {
@@ -29,9 +35,10 @@ class NoteApp extends React.Component {
   render() {
     return (
       <>
-        <AppHeader />
+        <AppHeader onSearch={this.onSearchHandler} />
         <AppBody
           notes={this.state.notes}
+          searchKeyword={this.state.searchKeyword}
           onDelete={this.onDeleteHandler}
           onArchive={this.onArchiveHandler}
         />
