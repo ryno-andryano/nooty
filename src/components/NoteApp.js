@@ -10,12 +10,14 @@ class NoteApp extends React.Component {
     this.state = {
       notes: getInitialData(),
       searchKeyword: '',
+      showAddNote: false,
     };
 
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
+    this.onToggleAddHandler = this.onToggleAddHandler.bind(this);
   }
 
   onSearchHandler(keyword) {
@@ -26,7 +28,6 @@ class NoteApp extends React.Component {
     this.setState((prevState) => {
       return {
         notes: [
-          ...prevState.notes,
           {
             id: nanoid(5),
             title,
@@ -34,6 +35,7 @@ class NoteApp extends React.Component {
             archived: false,
             createdAt: new Date(),
           },
+          ...prevState.notes,
         ],
       };
     });
@@ -51,6 +53,12 @@ class NoteApp extends React.Component {
     this.setState({notes});
   }
 
+  onToggleAddHandler() {
+    this.setState((prevState) => ({
+      showAddNote: !prevState.showAddNote,
+    }));
+  }
+
   render() {
     return (
       <>
@@ -58,9 +66,11 @@ class NoteApp extends React.Component {
         <AppBody
           notes={this.state.notes}
           searchKeyword={this.state.searchKeyword}
+          showAddNote={this.state.showAddNote}
           onAddNote={this.onAddNoteHandler}
           onDelete={this.onDeleteHandler}
           onArchive={this.onArchiveHandler}
+          onToggleAdd={this.onToggleAddHandler}
         />
       </>
     );

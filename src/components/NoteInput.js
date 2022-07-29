@@ -14,11 +14,19 @@ export class NoteInput extends React.Component {
   }
 
   onTitleChangesHandler(event) {
-    this.setState(() => {
-      return {
-        title: event.target.value,
-      };
-    });
+    if (this.state.title.length < 50) {
+      this.setState(() => {
+        return {
+          title: event.target.value,
+        };
+      });
+    } else {
+      this.setState(() => {
+        return {
+          title: event.target.value.slice(0, 50),
+        };
+      });
+    }
   }
 
   onBodyChangesHandler(event) {
@@ -32,37 +40,43 @@ export class NoteInput extends React.Component {
   onSubmitHandler(event) {
     event.preventDefault();
     this.props.onAddNote(this.state);
+    this.setState({
+      title: '',
+      body: '',
+    });
+    this.props.onToggleAdd();
   }
 
   render() {
-    return (
+    return this.props.showAddNote ? (
       <div className="note-input">
-        <h2>Buat Catatan</h2>
+        <h2>Add Note</h2>
         <form onSubmit={this.onSubmitHandler}>
           <p className="note-input__title__char-limit">
-            Sisa karakter: {50 - this.state.title.length}
+            {this.state.title.length < 50
+              ? this.state.title.length + '/50'
+              : 'You have reached the character limit.'}
           </p>
           <input
             type="text"
-            placeholder="Ini adalah judul ..."
+            placeholder="Title"
             className="note-input__title"
             value={this.state.title}
             onChange={this.onTitleChangesHandler}
-            maxlength="50"
             required
           ></input>
           <textarea
             type="text"
-            placeholder="Tuliskan catatanmu di sini ..."
+            placeholder="Take a note..."
             className="note-input__body"
             value={this.state.body}
             onChange={this.onBodyChangesHandler}
             required
           ></textarea>
-          <button type="submit">Buat</button>
+          <button type="submit">Save</button>
         </form>
       </div>
-    );
+    ) : null;
   }
 }
 
