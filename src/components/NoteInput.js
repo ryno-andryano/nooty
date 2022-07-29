@@ -39,13 +39,16 @@ export class NoteInput extends React.Component {
       <div className="note-input">
         <h2>Buat Catatan</h2>
         <form onSubmit={this.onSubmitHandler}>
-          <p className="note-input__title__char-limit">Sisa karakter: </p>
+          <p className="note-input__title__char-limit">
+            Sisa karakter: {50 - this.state.title.length}
+          </p>
           <input
             type="text"
             placeholder="Ini adalah judul ..."
             className="note-input__title"
             value={this.state.title}
             onChange={this.onTitleChangesHandler}
+            maxlength="50"
             required
           ></input>
           <textarea
