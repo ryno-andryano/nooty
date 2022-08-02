@@ -55,6 +55,14 @@ textarea::placeholder {
   max-width: 1000px;
 }
 
+.note-app__header a,
+a:hover,
+a:visited,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
 .note-app__header h1 {
   font-family: 'Pacifico', cursive;
   margin: 8px 0;

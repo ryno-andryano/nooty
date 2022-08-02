@@ -5,7 +5,9 @@ function AppHeader({onSearch}) {
   return (
     <div className="note-app__header">
       <div>
-        <h1>Nooty</h1>
+        <a href="/">
+          <h1>Nooty</h1>
+        </a>
         <SearchBar onSearch={onSearch} />
       </div>
     </div>
