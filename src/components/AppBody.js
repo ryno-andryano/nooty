@@ -4,7 +4,6 @@ import NoteInput from './NoteInput';
 
 function AppBody({
   notes,
-  searchKeyword,
   onAddNote,
   onDelete,
   onArchive,
@@ -23,7 +22,6 @@ function AppBody({
       <NoteList
         notes={notes}
         isArchived={false}
-        searchKeyword={searchKeyword}
         onDelete={onDelete}
         onArchive={onArchive}
         isAddButton={true}
@@ -33,7 +31,6 @@ function AppBody({
       <NoteList
         notes={notes}
         isArchived={true}
-        searchKeyword={searchKeyword}
         onDelete={onDelete}
         onArchive={onArchive}
       />
@@ -42,3 +39,4 @@ function AppBody({
 }
 
 export default AppBody;
+

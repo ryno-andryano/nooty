@@ -5,7 +5,6 @@ import NoteAddButton from './NoteAddButton';
 function NoteList({
   notes,
   isArchived,
-  searchKeyword,
   onDelete,
   onArchive,
   isAddButton,
@@ -13,9 +12,6 @@ function NoteList({
 }) {
   const notesToRender = notes
     .filter((note) => note.archived === isArchived)
-    .filter((note) =>
-      note.title.toLowerCase().includes(searchKeyword.toLowerCase())
-    )
     .map((note) => (
       <NoteItem
         key={note.id}

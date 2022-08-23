@@ -64,8 +64,11 @@ class NoteApp extends React.Component {
       <>
         <AppHeader onSearch={this.onSearchHandler} />
         <AppBody
-          notes={this.state.notes}
-          searchKeyword={this.state.searchKeyword}
+          notes={this.state.notes.filter((note) =>
+            note.title
+              .toLowerCase()
+              .includes(this.state.searchKeyword.toLowerCase()),
+          )}
           showAddNote={this.state.showAddNote}
           onAddNote={this.onAddNoteHandler}
           onDelete={this.onDeleteHandler}
