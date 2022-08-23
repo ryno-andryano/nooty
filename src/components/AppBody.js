@@ -1,31 +1,17 @@
 import React from 'react';
 import NoteList from './NoteList';
-import NoteInput from './NoteInput';
 
-function AppBody({
-  notes,
-  onAddNote,
-  onDelete,
-  onArchive,
-  onToggleAdd,
-  showAddNote,
-}) {
+function AppBody({notes, onDelete, onArchive, onToggleAdd}) {
   return (
     <div className="note-app__body">
-      <NoteInput
-        onAddNote={onAddNote}
-        showAddNote={showAddNote}
-        onToggleAdd={onToggleAdd}
-      />
-
       <h2>Notes List</h2>
       <NoteList
         notes={notes}
         isArchived={false}
         onDelete={onDelete}
         onArchive={onArchive}
-        isAddButton={true}
         onToggleAdd={onToggleAdd}
+        isShowAddButton
       />
       <h2>Archived Notes</h2>
       <NoteList
@@ -39,4 +25,3 @@ function AppBody({
 }
 
 export default AppBody;
-

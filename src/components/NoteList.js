@@ -7,7 +7,7 @@ function NoteList({
   isArchived,
   onDelete,
   onArchive,
-  isAddButton,
+  isShowAddButton,
   onToggleAdd,
 }) {
   const notesToRender = notes
@@ -23,8 +23,16 @@ function NoteList({
 
   return (
     <div className="notes-list">
-      {isAddButton ? <NoteAddButton onToggleAdd={onToggleAdd} /> : null}
-      {notesToRender.length === 0 ? <p>No notes found.</p> : notesToRender}
+      {isArchived ? (
+        notesToRender.length === 0 ? (
+          <p>No notes found.</p>
+        ) : (
+          notesToRender
+        )
+      ) : (
+        notesToRender
+      )}
+      {isShowAddButton ? <NoteAddButton onToggleAdd={onToggleAdd} /> : null}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import AppHeader from './AppHeader';
 import AppBody from './AppBody';
+import NoteInput from './NoteInput';
 import {getInitialData} from '../utils/data';
 import {nanoid} from 'nanoid';
 
@@ -28,6 +29,7 @@ class NoteApp extends React.Component {
     this.setState((prevState) => {
       return {
         notes: [
+          ...prevState.notes,
           {
             id: nanoid(5),
             title,
@@ -35,7 +37,6 @@ class NoteApp extends React.Component {
             archived: false,
             createdAt: new Date(),
           },
-          ...prevState.notes,
         ],
       };
     });
@@ -69,10 +70,13 @@ class NoteApp extends React.Component {
               .toLowerCase()
               .includes(this.state.searchKeyword.toLowerCase()),
           )}
-          showAddNote={this.state.showAddNote}
-          onAddNote={this.onAddNoteHandler}
           onDelete={this.onDeleteHandler}
           onArchive={this.onArchiveHandler}
+          onToggleAdd={this.onToggleAddHandler}
+        />
+        <NoteInput
+          showAddNote={this.state.showAddNote}
+          onAddNote={this.onAddNoteHandler}
           onToggleAdd={this.onToggleAddHandler}
         />
       </>

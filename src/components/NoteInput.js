@@ -11,22 +11,15 @@ export class NoteInput extends React.Component {
     this.onTitleChangesHandler = this.onTitleChangesHandler.bind(this);
     this.onBodyChangesHandler = this.onBodyChangesHandler.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
+    this.onCancelHandler = this.onCancelHandler.bind(this);
   }
 
   onTitleChangesHandler(event) {
-    if (this.state.title.length < 50) {
-      this.setState(() => {
-        return {
-          title: event.target.value,
-        };
-      });
-    } else {
-      this.setState(() => {
-        return {
-          title: event.target.value.slice(0, 50),
-        };
-      });
-    }
+    this.setState(() => {
+      return {
+        title: event.target.value,
+      };
+    });
   }
 
   onBodyChangesHandler(event) {
@@ -47,37 +40,55 @@ export class NoteInput extends React.Component {
     this.props.onToggleAdd();
   }
 
+  onCancelHandler(event) {
+    event.stopPropagation();
+    this.props.onToggleAdd();
+  }
+
   render() {
-    return this.props.showAddNote ? (
-      <div className="note-input">
-        <h2>Add Note</h2>
-        <form onSubmit={this.onSubmitHandler}>
-          <p className="note-input__title__char-limit">
-            {this.state.title.length < 50
-              ? this.state.title.length + '/50'
-              : 'You have reached the character limit.'}
-          </p>
-          <input
-            type="text"
-            placeholder="Title"
-            className="note-input__title"
-            value={this.state.title}
-            onChange={this.onTitleChangesHandler}
-            required
-          ></input>
-          <textarea
-            type="text"
-            placeholder="Take a note..."
-            className="note-input__body"
-            value={this.state.body}
-            onChange={this.onBodyChangesHandler}
-            required
-          ></textarea>
-          <button type="submit">Save</button>
-        </form>
+    return (
+      <div className={this.props.showAddNote ? 'modal' : 'modal--hidden'}>
+        <div className="note-input">
+          <h2>Add Note</h2>
+          <span className="material-icons" onClick={this.onCancelHandler}>
+            &#xe5c9;
+          </span>
+          <form onSubmit={this.onSubmitHandler}>
+            <p className="note-input__title-limit">
+              {this.state.title.length < 50
+                ? this.state.title.length + '/50'
+                : 'You have reached the character limit.'}
+            </p>
+            <input
+              type="text"
+              placeholder="Title"
+              className="note-input__title"
+              value={this.state.title}
+              onChange={this.onTitleChangesHandler}
+              maxLength="50"
+              required
+            ></input>
+            <p className="note-input__body-limit">
+              {this.state.body.length < 300
+                ? this.state.body.length + '/300'
+                : 'You have reached the character limit.'}
+            </p>
+            <textarea
+              type="text"
+              placeholder="Take a note..."
+              className="note-input__body"
+              value={this.state.body}
+              onChange={this.onBodyChangesHandler}
+              maxLength="300"
+              required
+            ></textarea>
+            <button type="submit">Save</button>
+          </form>
+        </div>
       </div>
-    ) : null;
+    );
   }
 }
 
 export default NoteInput;
+
