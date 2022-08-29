@@ -4,15 +4,17 @@ import AppBody from './AppBody';
 import NoteInput from './NoteInput';
 import {getInitialData} from '../utils/data';
 import {nanoid} from 'nanoid';
+import NootyIdb from '../data/idb';
 
 class NoteApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: getInitialData(),
+      notes: [],
       searchKeyword: '',
       showAddNote: false,
     };
+    this.init();
 
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
@@ -21,30 +23,38 @@ class NoteApp extends React.Component {
     this.onToggleAddHandler = this.onToggleAddHandler.bind(this);
   }
 
+  async init() {
+    let notes = await NootyIdb.getAllNotes();
+    if (notes.length < 1) {
+      notes = getInitialData();
+    }
+    this.setState({notes});
+  }
+
   onSearchHandler(keyword) {
     this.setState({searchKeyword: keyword});
   }
 
   onAddNoteHandler({title, body}) {
+    const newNote = {
+      id: nanoid(5),
+      title,
+      body,
+      archived: false,
+      createdAt: new Date(),
+    };
     this.setState((prevState) => {
       return {
-        notes: [
-          ...prevState.notes,
-          {
-            id: nanoid(5),
-            title,
-            body,
-            archived: false,
-            createdAt: new Date(),
-          },
-        ],
+        notes: [...prevState.notes, newNote],
       };
     });
+    NootyIdb.putNote(newNote);
   }
 
   onDeleteHandler(id) {
     const notes = this.state.notes.filter((note) => note.id !== id);
     this.setState({notes});
+    NootyIdb.deleteNote(id);
   }
 
   onArchiveHandler(id) {
@@ -52,6 +62,7 @@ class NoteApp extends React.Component {
     const notes = this.state.notes;
     notes[index].archived = !notes[index].archived;
     this.setState({notes});
+    NootyIdb.putNote(notes[index]);
   }
 
   onToggleAddHandler() {
