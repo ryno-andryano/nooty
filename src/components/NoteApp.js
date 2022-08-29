@@ -2,6 +2,7 @@ import React from 'react';
 import AppHeader from './AppHeader';
 import AppBody from './AppBody';
 import NoteInput from './NoteInput';
+import DeleteConfirmation from './DeleteConfirmation';
 import {getInitialData} from '../utils/data';
 import {nanoid} from 'nanoid';
 import NootyIdb from '../data/idb';
@@ -13,6 +14,8 @@ class NoteApp extends React.Component {
       notes: [],
       searchKeyword: '',
       showAddNote: false,
+      showDeleteModal: false,
+      selectedId: '',
     };
     this.init();
 
@@ -21,6 +24,8 @@ class NoteApp extends React.Component {
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
     this.onToggleAddHandler = this.onToggleAddHandler.bind(this);
+    this.onShowDeleteModalHandler = this.onShowDeleteModalHandler.bind(this);
+    this.onHideDeleteModalHandler = this.onHideDeleteModalHandler.bind(this);
   }
 
   async init() {
@@ -33,6 +38,12 @@ class NoteApp extends React.Component {
 
   onSearchHandler(keyword) {
     this.setState({searchKeyword: keyword});
+  }
+
+  onToggleAddHandler() {
+    this.setState((prevState) => ({
+      showAddNote: !prevState.showAddNote,
+    }));
   }
 
   onAddNoteHandler({title, body}) {
@@ -51,10 +62,20 @@ class NoteApp extends React.Component {
     NootyIdb.putNote(newNote);
   }
 
-  onDeleteHandler(id) {
-    const notes = this.state.notes.filter((note) => note.id !== id);
-    this.setState({notes});
-    NootyIdb.deleteNote(id);
+  onShowDeleteModalHandler(id) {
+    this.setState({showDeleteModal: true, selectedId: id});
+  }
+
+  onHideDeleteModalHandler() {
+    this.setState({showDeleteModal: false, selectedId: ''});
+  }
+
+  onDeleteHandler() {
+    const notes = this.state.notes.filter(
+      (note) => note.id !== this.state.selectedId,
+    );
+    this.setState({notes, showDeleteModal: false});
+    NootyIdb.deleteNote(this.state.selectedId);
   }
 
   onArchiveHandler(id) {
@@ -63,12 +84,6 @@ class NoteApp extends React.Component {
     notes[index].archived = !notes[index].archived;
     this.setState({notes});
     NootyIdb.putNote(notes[index]);
-  }
-
-  onToggleAddHandler() {
-    this.setState((prevState) => ({
-      showAddNote: !prevState.showAddNote,
-    }));
   }
 
   render() {
@@ -81,7 +96,7 @@ class NoteApp extends React.Component {
               .toLowerCase()
               .includes(this.state.searchKeyword.toLowerCase()),
           )}
-          onDelete={this.onDeleteHandler}
+          onDelete={this.onShowDeleteModalHandler}
           onArchive={this.onArchiveHandler}
           onToggleAdd={this.onToggleAddHandler}
         />
@@ -89,6 +104,11 @@ class NoteApp extends React.Component {
           showAddNote={this.state.showAddNote}
           onAddNote={this.onAddNoteHandler}
           onToggleAdd={this.onToggleAddHandler}
+        />
+        <DeleteConfirmation
+          showDeleteModal={this.state.showDeleteModal}
+          onConfirm={this.onDeleteHandler}
+          onCancel={this.onHideDeleteModalHandler}
         />
       </>
     );

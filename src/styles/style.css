@@ -111,7 +111,8 @@ a:active {
   display: none;
 }
 
-.note-input {
+.note-input,
+.delete-confirmation {
   background-color: #fafafa;
   box-shadow: 1px 2px 3px 4px rgba(20, 20, 20, 0.03);
   border-radius: 6px;
@@ -121,11 +122,13 @@ a:active {
   position: relative;
 }
 
-.note-input h2 {
+.note-input h2,
+.delete-confirmation h2 {
   margin-top: 0;
 }
 
-.note-input .material-icons {
+.note-input .material-icons,
+.delete-confirmation .material-icons {
   position: absolute;
   top: 20px;
   right: 20px;
