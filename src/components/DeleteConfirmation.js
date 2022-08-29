@@ -11,8 +11,12 @@ function DeleteConfirmation({showDeleteModal, onConfirm, onCancel}) {
         <p>
           Do you really want to delete this note? This process cannot be undone.
         </p>
-        <button onClick={onCancel}>Cancel</button>
-        <button onClick={onConfirm}>Delete</button>
+        <button id="cancel-delete-button" onClick={onCancel}>
+          Cancel
+        </button>
+        <button id="confirm-delete-button" onClick={onConfirm}>
+          Delete
+        </button>
       </div>
     </div>
   );

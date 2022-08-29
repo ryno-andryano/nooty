@@ -177,6 +177,44 @@ a:active {
   background-color: #2290da;
 }
 
+.delete-confirmation {
+  text-align: center;
+  max-width: 360px;
+}
+
+.delete-confirmation p {
+  margin-bottom: 14px;
+}
+
+.delete-confirmation button {
+  font-size: 16px;
+  padding: 10px 16px;
+  margin: 0 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-confirmation #cancel-delete-button {
+  background-color: #fafafa;
+  border: 2px solid #2290da;
+  transition: all 0.3s ease;
+}
+
+.delete-confirmation #cancel-delete-button:hover {
+  background-color: #eeeeee;
+}
+
+.delete-confirmation #confirm-delete-button {
+  background-color: #2290da;
+  color: #ffffff;
+  border: 2px solid #2290da;
+  transition: all 0.3s ease;
+}
+
+.delete-confirmation #confirm-delete-button:hover {
+  background-color: #1d79b6;
+}
+
 .notes-list {
   display: grid;
   grid-template-columns: 1fr;
