@@ -1,7 +1,7 @@
 import React from 'react';
 import NoteDeleteButton from './NoteDeleteButton';
 import NoteArchiveButton from './NoteArchiveButton';
-import {showFormattedDate} from '../utils/data';
+import {showFormattedDate} from '../data/sample';
 
 function NoteItem({title, createdAt, body, id, archived, onDelete, onArchive}) {
   return (

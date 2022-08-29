@@ -3,7 +3,7 @@ import AppHeader from './AppHeader';
 import AppBody from './AppBody';
 import NoteInput from './NoteInput';
 import DeleteConfirmation from './DeleteConfirmation';
-import {getInitialData} from '../utils/data';
+import {getSampleData} from '../data/sample';
 import {nanoid} from 'nanoid';
 import NootyIdb from '../data/idb';
 
@@ -12,8 +12,8 @@ class NoteApp extends React.Component {
     super(props);
     this.state = {
       notes: [],
-      searchKeyword: '',
-      showAddNote: false,
+      query: '',
+      showAddModal: false,
       showDeleteModal: false,
       selectedId: '',
     };
@@ -23,7 +23,8 @@ class NoteApp extends React.Component {
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
-    this.onToggleAddHandler = this.onToggleAddHandler.bind(this);
+    this.onShowAddModalHandler = this.onShowAddModalHandler.bind(this);
+    this.onHideAddModalHandler = this.onHideAddModalHandler.bind(this);
     this.onShowDeleteModalHandler = this.onShowDeleteModalHandler.bind(this);
     this.onHideDeleteModalHandler = this.onHideDeleteModalHandler.bind(this);
   }
@@ -31,19 +32,21 @@ class NoteApp extends React.Component {
   async init() {
     let notes = await NootyIdb.getAllNotes();
     if (notes.length < 1) {
-      notes = getInitialData();
+      notes = getSampleData();
     }
     this.setState({notes});
   }
 
   onSearchHandler(keyword) {
-    this.setState({searchKeyword: keyword});
+    this.setState({query: keyword});
   }
 
-  onToggleAddHandler() {
-    this.setState((prevState) => ({
-      showAddNote: !prevState.showAddNote,
-    }));
+  onShowAddModalHandler() {
+    this.setState({showAddModal: true});
+  }
+
+  onHideAddModalHandler() {
+    this.setState({showAddModal: false});
   }
 
   onAddNoteHandler({title, body}) {
@@ -92,18 +95,16 @@ class NoteApp extends React.Component {
         <AppHeader onSearch={this.onSearchHandler} />
         <AppBody
           notes={this.state.notes.filter((note) =>
-            note.title
-              .toLowerCase()
-              .includes(this.state.searchKeyword.toLowerCase()),
+            note.title.toLowerCase().includes(this.state.query.toLowerCase()),
           )}
           onDelete={this.onShowDeleteModalHandler}
           onArchive={this.onArchiveHandler}
-          onToggleAdd={this.onToggleAddHandler}
+          onShowAdd={this.onShowAddModalHandler}
         />
         <NoteInput
-          showAddNote={this.state.showAddNote}
+          showAddModal={this.state.showAddModal}
           onAddNote={this.onAddNoteHandler}
-          onToggleAdd={this.onToggleAddHandler}
+          onHideAdd={this.onHideAddModalHandler}
         />
         <DeleteConfirmation
           showDeleteModal={this.state.showDeleteModal}

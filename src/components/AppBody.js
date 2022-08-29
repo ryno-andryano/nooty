@@ -1,7 +1,7 @@
 import React from 'react';
 import NoteList from './NoteList';
 
-function AppBody({notes, onDelete, onArchive, onToggleAdd}) {
+function AppBody({notes, onDelete, onArchive, onShowAdd}) {
   return (
     <div className="note-app__body">
       <h2>Notes List</h2>
@@ -10,7 +10,7 @@ function AppBody({notes, onDelete, onArchive, onToggleAdd}) {
         isArchived={false}
         onDelete={onDelete}
         onArchive={onArchive}
-        onToggleAdd={onToggleAdd}
+        onShowAdd={onShowAdd}
         isShowAddButton
       />
       <h2>Archived Notes</h2>

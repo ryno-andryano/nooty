@@ -37,17 +37,17 @@ export class NoteInput extends React.Component {
       title: '',
       body: '',
     });
-    this.props.onToggleAdd();
+    this.props.onHideAdd();
   }
 
   onCancelHandler(event) {
     event.stopPropagation();
-    this.props.onToggleAdd();
+    this.props.onHideAdd();
   }
 
   render() {
     return (
-      <div className={this.props.showAddNote ? 'modal' : 'modal--hidden'}>
+      <div className={this.props.showAddModal ? 'modal' : 'modal--hidden'}>
         <div className="note-input">
           <h2>Add Note</h2>
           <span className="material-icons" onClick={this.onCancelHandler}>
@@ -91,4 +91,3 @@ export class NoteInput extends React.Component {
 }
 
 export default NoteInput;
-

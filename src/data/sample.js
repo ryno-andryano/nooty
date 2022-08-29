@@ -1,6 +1,6 @@
 import {nanoid} from 'nanoid';
 
-const getInitialData = () => {
+const getSampleData = () => {
   return [
     {
       id: nanoid(5),
@@ -57,4 +57,4 @@ const showFormattedDate = (date) => {
   return new Date(date).toLocaleDateString('en-GB', options);
 };
 
-export {getInitialData, showFormattedDate};
+export {getSampleData, showFormattedDate};

@@ -1,8 +1,8 @@
 import React from 'react';
 
-function NoteAddButton({onToggleAdd}) {
+function NoteAddButton({onShowAdd}) {
   return (
-    <button title="Add Note" className="note-add-button" onClick={onToggleAdd}>
+    <button title="Add Note" className="note-add-button" onClick={onShowAdd}>
       <span className="material-icons">&#xe147;</span>
     </button>
   );
