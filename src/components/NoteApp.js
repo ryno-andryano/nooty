@@ -13,9 +13,10 @@ class NoteApp extends React.Component {
     this.state = {
       notes: [],
       query: '',
+      selectedId: '',
       showAddModal: false,
       showDeleteModal: false,
-      selectedId: '',
+      showArchivedNotes: true,
     };
     this.init();
 
@@ -27,6 +28,7 @@ class NoteApp extends React.Component {
     this.onHideAddModalHandler = this.onHideAddModalHandler.bind(this);
     this.onShowDeleteModalHandler = this.onShowDeleteModalHandler.bind(this);
     this.onHideDeleteModalHandler = this.onHideDeleteModalHandler.bind(this);
+    this.onToggleArchiveHandler = this.onToggleArchiveHandler.bind(this);
   }
 
   async init() {
@@ -51,7 +53,6 @@ class NoteApp extends React.Component {
 
   onAddNoteHandler({title, body}) {
     const newNote = {
-      id: nanoid(5),
       title,
       body,
       archived: false,
@@ -89,6 +90,12 @@ class NoteApp extends React.Component {
     NootyIdb.putNote(notes[index]);
   }
 
+  onToggleArchiveHandler() {
+    this.setState((prevState) => ({
+      showArchivedNotes: !prevState.showArchivedNotes,
+    }));
+  }
+
   render() {
     return (
       <>
@@ -97,9 +104,11 @@ class NoteApp extends React.Component {
           notes={this.state.notes.filter((note) =>
             note.title.toLowerCase().includes(this.state.query.toLowerCase()),
           )}
+          showArchivedNotes={this.state.showArchivedNotes}
           onDelete={this.onShowDeleteModalHandler}
           onArchive={this.onArchiveHandler}
           onShowAdd={this.onShowAddModalHandler}
+          onShowArchive={this.onToggleArchiveHandler}
         />
         <NoteInput
           showAddModal={this.state.showAddModal}

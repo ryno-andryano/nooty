@@ -48,7 +48,7 @@ export class NoteInput extends React.Component {
   render() {
     return (
       <div
-        className={this.props.showAddModal ? 'modal' : 'modal--hidden'}
+        className={this.props.showAddModal ? 'modal' : 'hidden'}
         onClick={this.onCancelHandler}
       >
         <div

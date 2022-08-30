@@ -7,8 +7,9 @@ function NoteList({
   isArchived,
   onDelete,
   onArchive,
-  isShowAddButton,
+  showAddButton,
   onShowAdd,
+  showArchivedNotes,
 }) {
   const notesToRender = notes
     .filter((note) => note.archived === isArchived)
@@ -22,7 +23,7 @@ function NoteList({
     ));
 
   return (
-    <div className="notes-list">
+    <div className={showArchivedNotes === false ? 'hidden' : 'notes-list'}>
       {isArchived ? (
         notesToRender.length === 0 ? (
           <p>No notes found.</p>
@@ -32,7 +33,7 @@ function NoteList({
       ) : (
         notesToRender
       )}
-      {isShowAddButton ? <NoteAddButton onShowAdd={onShowAdd} /> : null}
+      {showAddButton ? <NoteAddButton onShowAdd={onShowAdd} /> : null}
     </div>
   );
 }

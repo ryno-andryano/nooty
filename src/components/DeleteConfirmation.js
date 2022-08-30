@@ -2,10 +2,7 @@ import React from 'react';
 
 function DeleteConfirmation({showDeleteModal, onConfirm, onCancel}) {
   return (
-    <div
-      className={showDeleteModal ? 'modal' : 'modal--hidden'}
-      onClick={onCancel}
-    >
+    <div className={showDeleteModal ? 'modal' : 'hidden'} onClick={onCancel}>
       <div
         className="delete-confirmation"
         onClick={(event) => event.stopPropagation()}

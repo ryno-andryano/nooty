@@ -93,6 +93,22 @@ a:active {
   margin: 120px 20px 8px 20px;
 }
 
+.archive-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.archive-wrapper h2 {
+  cursor: pointer;
+  display: inline;
+}
+
+.archive-wrapper .material-icons {
+  cursor: pointer;
+  font-size: 30px;
+  color: #2290da;
+}
+
 .modal {
   position: fixed;
   z-index: 2;
@@ -108,7 +124,7 @@ a:active {
   align-items: center;
 }
 
-.modal--hidden {
+.hidden {
   display: none;
 }
 
@@ -198,6 +214,7 @@ a:active {
 .delete-confirmation #cancel-delete-button {
   background-color: #fafafa;
   border: 2px solid #2290da;
+  color: #2290da;
   transition: all 0.3s ease;
 }
 
