@@ -3,9 +3,8 @@ import AppHeader from './AppHeader';
 import AppBody from './AppBody';
 import NoteInput from './NoteInput';
 import DeleteConfirmation from './DeleteConfirmation';
-import {getSampleData} from '../data/sample';
-import {nanoid} from 'nanoid';
 import NootyIdb from '../data/idb';
+import {getSampleData} from '../data/sample';
 
 class NoteApp extends React.Component {
   constructor(props) {
@@ -35,6 +34,7 @@ class NoteApp extends React.Component {
     let notes = await NootyIdb.getAllNotes();
     if (notes.length < 1) {
       notes = getSampleData();
+      NootyIdb.putNote(notes[0]);
     }
     this.setState({notes});
   }
@@ -53,6 +53,7 @@ class NoteApp extends React.Component {
 
   onAddNoteHandler({title, body}) {
     const newNote = {
+      id: Date.now(),
       title,
       body,
       archived: false,
