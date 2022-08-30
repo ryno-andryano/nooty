@@ -47,8 +47,14 @@ export class NoteInput extends React.Component {
 
   render() {
     return (
-      <div className={this.props.showAddModal ? 'modal' : 'modal--hidden'}>
-        <div className="note-input">
+      <div
+        className={this.props.showAddModal ? 'modal' : 'modal--hidden'}
+        onClick={this.onCancelHandler}
+      >
+        <div
+          className="note-input"
+          onClick={(event) => event.stopPropagation()}
+        >
           <h2>Add Note</h2>
           <span className="material-icons" onClick={this.onCancelHandler}>
             &#xe5c9;

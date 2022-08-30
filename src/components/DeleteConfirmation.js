@@ -2,8 +2,14 @@ import React from 'react';
 
 function DeleteConfirmation({showDeleteModal, onConfirm, onCancel}) {
   return (
-    <div className={showDeleteModal ? 'modal' : 'modal--hidden'}>
-      <div className="delete-confirmation">
+    <div
+      className={showDeleteModal ? 'modal' : 'modal--hidden'}
+      onClick={onCancel}
+    >
+      <div
+        className="delete-confirmation"
+        onClick={(event) => event.stopPropagation()}
+      >
         <h2>Are you sure?</h2>
         <span className="material-icons" onClick={onCancel}>
           &#xe5c9;
